@@ -4,6 +4,7 @@ import { db } from '../firebase';
 import { addDoc, collection } from 'firebase/firestore';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
+import Image from 'next/image';
 import {
   MapPin,
   Moon,
@@ -42,12 +43,16 @@ export default function WeddingInvite() {
     setAudio(newAudio);
   }, []);
 
-  const toggleDarkMode = () => setDarkMode(!darkMode);
+  const toggleDarkMode = () => setDarkMode((prev) => !prev);
 
   const toggleMusic = () => {
     if (!audio) return;
-    musicPlaying ? audio.pause() : audio.play();
-    setMusicPlaying(!musicPlaying);
+    if (musicPlaying) {
+      audio.pause();
+    } else {
+      audio.play();
+    }
+    setMusicPlaying((prev) => !prev);
   };
 
   const handleChange = (e) =>
@@ -76,7 +81,7 @@ export default function WeddingInvite() {
       } bg-fixed bg-[url('/wedding-bg.jpg')] bg-cover bg-center bg-no-repeat`}
     >
       <Head>
-        <title>Berry & Nnaemeka's Wedding</title>
+        <title>Berry &amp; Nnaemeka's Wedding</title>
         <meta
           name="description"
           content="You're cordially invited to our wedding celebration!"
@@ -106,7 +111,7 @@ export default function WeddingInvite() {
             className="text-5xl font-extrabold mb-4"
             animate={{ opacity: [0, 1], y: [-20, 0] }}
           >
-            Berry & Nnaemeka
+            Berry &amp; Nnaemeka
           </motion.h1>
 
           {isClient && (
@@ -119,7 +124,7 @@ export default function WeddingInvite() {
               And Late Edidiong Isong Ekon Of Ibiono, <br />
               both in Oron Local Government Area of Akwa Ibom State <br />
               Cordially invite YOU to the traditional marriage of their
-              children <br />- Ms. Joy Umoekpe & Dr. James Isong
+              children <br />- Ms. Joy Umoekpe &amp; Dr. James Isong
             </p>
             <p className="text-lg font-semibold">Join us on June 15, 2025</p>
           </div>
@@ -144,7 +149,7 @@ export default function WeddingInvite() {
             </p>
             <p>
               🎨 Colours of the day:{' '}
-              <span className="font-bold">Champagne Gold & White</span>
+              <span className="font-bold">Champagne Gold &amp; White</span>
             </p>
           </div>
 
@@ -183,12 +188,14 @@ export default function WeddingInvite() {
             <br />
             With Love ❤️,
             <br />
-            <span className="text-xl font-semibold">Joy & James</span>
+            <span className="text-xl font-semibold">Joy &amp; James</span>
           </p>
-          <img
+          <Image
             src="/wedding-couples.jpg"
             alt="Wedding Couple"
             className="w-64 mt-6 rounded-lg shadow-lg mx-auto"
+            width={256}
+            height={256}
           />
           <button
             onClick={() => setPage('rsvp')}
